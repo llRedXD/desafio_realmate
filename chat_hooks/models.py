@@ -44,7 +44,7 @@ class Conversation(BaseModel):
 
     id = models.UUIDField(primary_key=True, editable=False)
     user_id = models.CharField(max_length=255)
-    status = models.CharField(
+    state = models.CharField(
         max_length=10,
         choices=conversation_status.choices,
         default=conversation_status.OPEN,

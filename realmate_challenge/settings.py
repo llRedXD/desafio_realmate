@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Custom apps
     "chat_hooks",
+    # Third-party apps
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
