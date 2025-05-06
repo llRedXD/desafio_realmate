@@ -1,7 +1,5 @@
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from chat_hooks.models import Conversation, Message
 from chat_hooks.services.webhook import (
     close_conversation,
     create_conversation,

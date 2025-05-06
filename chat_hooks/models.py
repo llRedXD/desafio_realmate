@@ -73,7 +73,7 @@ class Message(BaseModel):
         on_delete=models.CASCADE,
         related_name="messages",
     )
-    direction_message = models.CharField(
+    direction = models.CharField(
         max_length=10,
         choices=direction_message.choices,
         null=True,
@@ -82,4 +82,4 @@ class Message(BaseModel):
     content = models.TextField()
 
     def __str__(self):
-        return f"Message {self.id} from {self.sender} in conversation {self.conversation.id}"
+        return f"Message {self.id} from {self.direction} in conversation {self.conversation.id}"

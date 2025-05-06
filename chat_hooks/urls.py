@@ -1,5 +1,6 @@
 from django.urls import path
-from chat_hooks.views import ConversationViewSet, WebhookViewSet
+from chat_hooks.views import ConversationViewSet
+from chat_hooks.api.webhook import WebhookViewSet
 
 urlpatterns = [
     path(
