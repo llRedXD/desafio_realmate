@@ -1,0 +1,45 @@
+from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from chat_hooks.models import Conversation, Message
+from chat_hooks.services.webhook import (
+    close_conversation,
+    create_conversation,
+    new_message,
+)
+
+
+class WebhookViewSet(viewsets.ViewSet):
+    """
+    ViewSet for handling webhooks.
+    """
+
+    def create(self, request):
+        payload = request.data
+        event_type = payload.get("type")
+        data = payload.get("data", {})
+
+        if not event_type or not data:
+            return Response(
+                {"error": "Payload inválido"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Processa evento de nova conversa
+        if event_type == "NEW_CONVERSATION":
+            response = create_conversation(data)
+            return response
+
+        # Processa evento de nova mensagem
+        elif event_type == "NEW_MESSAGE":
+            response = new_message(data)
+            return response
+
+        # Processa evento de fechar conversa
+        elif event_type == "CLOSE_CONVERSATION":
+            response = close_conversation(data)
+            return response
+
+        else:
+            return Response(
+                {"error": "Tipo de evento inválido"}, status=status.HTTP_400_BAD_REQUEST
+            )
