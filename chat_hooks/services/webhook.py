@@ -12,7 +12,7 @@ def create_conversation(data):
         )
     # Cria conversa com estado OPEN
     conversation, created = Conversation.objects.get_or_create(
-        id=conversation_id, defaults={"state": "OPEN"}
+        id=conversation_id, defaults={"status": "OPEN"}
     )
     if not created:
         return Response(
