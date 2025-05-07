@@ -8,6 +8,30 @@
 <body>
     <h1>Bem-vindo à Lista de Conversas</h1>
     <p>Aqui estão suas conversas recentes:</p>
-    
 </body>
+
+<script>
+    // Função para redirecionar para a página de conversa
+    function redirectToConversation(conversationId) {
+        window.location.href = `/conversations/view/${conversationId}/`;
+    }
+
+    // Exemplo de conversas (substitua isso pela sua lógica real)
+    const conversations = [
+        { id: 1, title: "Conversa 1" },
+        { id: 2, title: "Conversa 2" },
+        { id: 3, title: "Conversa 3" }
+    ];
+
+    // Renderizando as conversas na página
+    const body = document.body;
+    conversations.forEach(conversation => {
+        const button = document.createElement('button');
+        button.innerText = conversation.title;
+        button.onclick = () => redirectToConversation(conversation.id);
+        body.appendChild(button);
+    });
+
+</script>
+
 </html>

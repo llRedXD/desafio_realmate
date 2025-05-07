@@ -1,7 +1,7 @@
 from django.urls import path
 from chat_hooks.api.webhook import WebhookViewSet
 from chat_hooks.api.conversation import ConversationViewSet
-from chat_hooks.views import view_conversation
+from chat_hooks.views import view_conversation, view_conversations
 
 urlpatterns = [
     path(
@@ -21,7 +21,12 @@ urlpatterns = [
     ),
     path(
         "conversations/view/",
-        view_conversation,
+        view_conversations,
         name="view-conversation",
+    ),
+    path(
+        "conversations/view/<int:conversation_id>/",
+        view_conversation,
+        name="view-conversation-detail",
     ),
 ]
