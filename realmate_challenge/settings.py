@@ -25,7 +25,10 @@ SECRET_KEY = "django-insecure-)#$b+zh12er&2m55k2l5=ko-y@b5p21_a%r19+=ru*_e=+%j1$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["testserver"]
+ALLOWED_HOSTS = [
+    "testserver",
+    "localhost",
+]
 
 
 # Application definition
@@ -58,7 +61,7 @@ ROOT_URLCONF = "realmate_challenge.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
