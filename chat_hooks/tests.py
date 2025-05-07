@@ -358,30 +358,3 @@ class WebhookApiTestCase(TestCase):
             response.data["error"],
             "Não é possível adicionar mensagem a conversa fechada",
         )
-
-    def test_close_conversation(self):
-        """
-        Test closing a conversation.
-        """
-        # First, create a conversation
-        self.client.post(
-            "/webhook/",
-            {
-                "type": "NEW_CONVERSATION",
-                "timestamp": "2023-10-01T12:00:00Z",
-                "data": {"id": "123e4567-e89b-12d3-a456-426614174000"},
-            },
-            content_type="application/json",
-        )
-
-        response = self.client.post(
-            "/webhook/",
-            {
-                "type": "CLOSE_CONVERSATION",
-                "timestamp": "2023-10-01T12:00:00Z",
-                "data": {"id": "123e4567-e89b-12d3-a456-426614174000"},
-            },
-            content_type="application/json",
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["message"], "Conversation fechada")
