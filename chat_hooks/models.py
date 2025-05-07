@@ -28,9 +28,9 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class conversation_state(models.TextChoices):
+class conversation_status(models.TextChoices):
     """
-    Enum for states choices.
+    Enum for status choices.
     """
 
     OPEN = "open", "Open"
@@ -43,10 +43,10 @@ class Conversation(BaseModel):
     """
 
     id = models.UUIDField(primary_key=True, editable=False)
-    state = models.CharField(
+    status = models.CharField(
         max_length=10,
-        choices=conversation_state.choices,
-        default=conversation_state.OPEN,
+        choices=conversation_status.choices,
+        default=conversation_status.OPEN,
     )
 
     def __str__(self):

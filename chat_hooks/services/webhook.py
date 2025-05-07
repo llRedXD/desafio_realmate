@@ -36,7 +36,7 @@ def close_conversation(data):
             {"error": "Conversation não encontrada"},
             status=status.HTTP_404_NOT_FOUND,
         )
-    conversation.state = "CLOSED"
+    conversation.status = "CLOSED"
     conversation.save()
     return Response({"message": "Conversation fechada"}, status=status.HTTP_200_OK)
 
@@ -61,7 +61,7 @@ def new_message(data):
             status=status.HTTP_404_NOT_FOUND,
         )
 
-    if conversation.state == "CLOSED":
+    if conversation.status == "CLOSED":
         return Response(
             {"error": "Não é possível adicionar mensagem a conversa fechada"},
             status=status.HTTP_400_BAD_REQUEST,
