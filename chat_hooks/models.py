@@ -50,7 +50,7 @@ class Conversation(BaseModel):
     )
 
     def __str__(self):
-        return f"Conversation {self.id} for user {self.user_id}"
+        return f"Conversation {self.id}"
 
 
 class direction_message(models.TextChoices):
