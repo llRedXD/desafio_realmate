@@ -67,6 +67,12 @@ def new_message(data):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    if direction not in ["SENT", "RECEIVED"]:
+        return Response(
+            {"error": "Direção inválida"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     message, created = Message.objects.get_or_create(
         id=message_id,
         defaults={
