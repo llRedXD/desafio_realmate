@@ -11,8 +11,15 @@
   <body class="bg-gray-900 text-white">
     <div class="flex">
       <aside class="w-1/4 h-screen bg-gray-800 p-4 overflow-y-auto">
-        <h1 class="text-2xl font-bold mb-2">Conversas</h1>
-        <h2 class="text-lg mb-4">Lista de conversas recentes:</h2>
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h1 class="text-2xl font-bold mb-2">Conversas</h1>
+            <h2 class="text-lg">Lista de conversas recentes:</h2>
+          </div>
+          <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+            Logout
+          </a>
+        </div>
         <div id="conversation-buttons" class="flex flex-col gap-4">
           <!-- Os botões das conversas serão inseridos aqui via JavaScript -->
         </div>

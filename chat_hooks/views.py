@@ -2,10 +2,6 @@ from django.shortcuts import render
 
 
 def view_conversations(request):
+    if not request.user.is_authenticated:
+        return render(request, "login.html")
     return render(request, "conversations.html")
-
-
-def view_conversation(request, conversation_id):
-    return render(
-        request, "conversation_detail.html", {"conversation_id": conversation_id}
-    )
