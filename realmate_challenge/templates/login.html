@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>Login</title>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <div class="flex items-center justify-center h-screen">
+        <div class="bg-gray-800 p-6 rounded shadow-md">
+            <form action="/login/" method="POST">
+                {% csrf_token %}
+                <div class="mb-4 flex items-center">
+                    <label for="username" class="w-32">Usuário:</label>
+                    <input type="text" id="username" name="username" required class="flex-1 px-3 py-2 border-2 border-blue-500 rounded focus:outline-none">
+                </div>
+                <div class="mb-4 flex items-center">
+                    <label for="password" class="w-32">Senha:</label>
+                    <input type="password" id="password" name="password" required class="flex-1 px-3 py-2 border-2 border-blue-500 rounded focus:outline-none">
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-blue-500 text-white px-3 py-2 rounded">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
