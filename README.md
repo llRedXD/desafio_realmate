@@ -12,21 +12,21 @@ Desenvolver uma web API utilizando **Django Rest Framework** para receber webhoo
 
 ## 📌 Requisitos
 
-1.	Criar dois modelos principais:
-	- `Conversation`
-	- `Message` (relacionado a uma `Conversation`)
-2.	A API deve:
-	- Receber eventos via POST no endpoint `localhost/webhook/`
-	- Criar instâncias dos modelos correspondentes
-3.	Criar um endpoint GET em `localhost/conversations/{id}` para expor a conversa, incluindo:
-	- Seu estado (`OPEN` ou `CLOSED`)
-	- Suas mensagens
-4.	Lidar com erros de maneira graceful (evitar retornos de erro 500).
-5.	Restrições:
-	- Uma `Conversation` deve ter um estado. Os estados possíveis são: `OPEN` e `CLOSED`
-	- Uma `CLOSED` `Conversation` não pode receber novas mensagens
-	- Uma `Message` deve ter dois tipos: `SENT` e `RECEIVED`
-6.	O banco de dados utilizado deve ser SQLite.
+1. Criar dois modelos principais:
+   - `Conversation`
+   - `Message` (relacionado a uma `Conversation`)
+2. A API deve:
+   - Receber eventos via POST no endpoint `localhost/webhook/`
+   - Criar instâncias dos modelos correspondentes
+3. Criar um endpoint GET em `localhost/conversations/{id}` para expor a conversa, incluindo:
+   - Seu estado (`OPEN` ou `CLOSED`)
+   - Suas mensagens
+4. Lidar com erros de maneira graceful (evitar retornos de erro 500).
+5. Restrições:
+   - Uma `Conversation` deve ter um estado. Os estados possíveis são: `OPEN` e `CLOSED`
+   - Uma `CLOSED` `Conversation` não pode receber novas mensagens
+   - Uma `Message` deve ter dois tipos: `SENT` e `RECEIVED`
+6. O banco de dados utilizado deve ser SQLite.
 
 ## 📦 Formato dos Webhooks
 
@@ -36,11 +36,11 @@ Os eventos virão no seguinte formato:
 
 ```json
 {
-    "type": "NEW_CONVERSATION",
-    "timestamp": "2025-02-21T10:20:41.349308",
-    "data": {
-        "id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
-    }
+  "type": "NEW_CONVERSATION",
+  "timestamp": "2025-02-21T10:20:41.349308",
+  "data": {
+    "id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
+  }
 }
 ```
 
@@ -48,14 +48,14 @@ Os eventos virão no seguinte formato:
 
 ```json
 {
-    "type": "NEW_MESSAGE",
-    "timestamp": "2025-02-21T10:20:42.349308",
-    "data": {
-        "id": "49108c71-4dca-4af3-9f32-61bc745926e2",
-        "direction": "RECEIVED",
-        "content": "Olá, tudo bem?",
-        "conversation_id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
-    }
+  "type": "NEW_MESSAGE",
+  "timestamp": "2025-02-21T10:20:42.349308",
+  "data": {
+    "id": "49108c71-4dca-4af3-9f32-61bc745926e2",
+    "direction": "RECEIVED",
+    "content": "Olá, tudo bem?",
+    "conversation_id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
+  }
 }
 ```
 
@@ -63,14 +63,14 @@ Os eventos virão no seguinte formato:
 
 ```json
 {
-    "type": "NEW_MESSAGE",
-    "timestamp": "2025-02-21T10:20:44.349308",
-    "data": {
-        "id": "16b63b04-60de-4257-b1a1-20a5154abc6d",
-        "direction": "SENT",
-        "content": "Tudo ótimo e você?",
-        "conversation_id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
-    }
+  "type": "NEW_MESSAGE",
+  "timestamp": "2025-02-21T10:20:44.349308",
+  "data": {
+    "id": "16b63b04-60de-4257-b1a1-20a5154abc6d",
+    "direction": "SENT",
+    "content": "Tudo ótimo e você?",
+    "conversation_id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
+  }
 }
 ```
 
@@ -78,11 +78,11 @@ Os eventos virão no seguinte formato:
 
 ```json
 {
-    "type": "CLOSE_CONVERSATION",
-    "timestamp": "2025-02-21T10:20:45.349308",
-    "data": {
-        "id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
-    }
+  "type": "CLOSE_CONVERSATION",
+  "timestamp": "2025-02-21T10:20:45.349308",
+  "data": {
+    "id": "6a41b347-8d80-4ce9-84ba-7af66f369f6a"
+  }
 }
 ```
 
@@ -121,29 +121,35 @@ pip install poetry
 > [!WARNING]  
 > Siga todas as instruções de instalação do projeto. O descumprimento dos requisitos de instalação acarretará a desclassificação do(a) candidato(a).
 
-1.	Crie um repositório público, utilizando este repositório como template. Para isso, clique sobre o botão "**Use this template**", no canto superio direito desta tela. Forks **não** serão aceitos.
+1. Crie um repositório público, utilizando este repositório como template. Para isso, clique sobre o botão "**Use this template**", no canto superio direito desta tela. Forks **não** serão aceitos.
 
-
-
-2.	Instale as dependências do projeto utilizando o Poetry:
+2. Instale as dependências do projeto utilizando o Poetry:
 
 ```bash
 cd realmate-challenge
 poetry install
 ```
 
-3.	Aplique as migrações no banco de dados SQLite:
+3. Aplique as migrações no banco de dados SQLite:
 
 ```bash
 python manage.py migrate
 ```
 
-4.	Execute o servidor de desenvolvimento:
+4. Execute o servidor de desenvolvimento:
 
 ```bash
 python manage.py runserver
 ```
 
+## Login
+
+1. Acesse a url `http://127.0.1:8000` e faça o login com o usuário padrão:
+
+   - Usuário: `admin`
+   - Senha: `Admin271748`
+
+2. Ao logar, você verá a lista de conversas que ao ser clicada, mostrará as mensagens associadas a ela.
 
 ## 📌 Entrega e Requisitos
 
