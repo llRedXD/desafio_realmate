@@ -11,7 +11,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
     ViewSet for Conversation model.
     """
 
-    queryset = Conversation.objects.all()
+    queryset = Conversation.objects.all().order_by("-created_at")
     serializer_class = ConversationSerializer
     permission_classes = [IsAuthenticated]
 

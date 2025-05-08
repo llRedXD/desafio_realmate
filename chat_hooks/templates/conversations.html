@@ -7,32 +7,131 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
     <title>Lista de Conversas</title>
   </head>
-  <body>
-    <h1>Bem-vindo à Lista de Conversas</h1>
-    <p>Aqui estão suas conversas recentes:</p>
+
+  <body class="bg-gray-900 text-white">
+    <div class="flex">
+      <aside class="w-1/4 h-screen bg-gray-800 p-4 overflow-y-auto">
+        <h1 class="text-2xl font-bold mb-2">Conversas</h1>
+        <h2 class="text-lg mb-4">Lista de conversas recentes:</h2>
+        <div id="conversation-buttons" class="flex flex-col gap-4">
+          <!-- Os botões das conversas serão inseridos aqui via JavaScript -->
+        </div>
+      </aside>
+      <main class="flex-1 p-4">
+        <!-- Conteúdo da conversa selecionada pode ser exibido aqui -->
+      </main>
+    </div>
   </body>
 
-  <script>
-    // Função para redirecionar para a página de conversa
-    function redirectToConversation(conversationId) {
-      window.location.href = `/conversations/view/${conversationId}/`;
-    }
-
-    async function carregarConversas() {
-      try {
-        const response = await fetch("/conversations/");
-        const conversations = await response.json();
-        const body = document.body;
-        conversations.forEach((conversation) => {
-          const button = document.createElement("button");
-          button.innerText = conversation.id;
-          button.onclick = () => redirectToConversation(conversation.id);
-          body.appendChild(button);
-        });
-      } catch (error) {
-        console.error("Erro ao buscar conversas:", error);
+    <script>
+      // Função para redirecionar para a página de conversa
+      function redirectToConversation(conversationId) {
+        window.location.href = `/conversations/view/${conversationId}/`;
       }
-    }
-    carregarConversas();
-  </script>
+      async function carregarMensagens(conversation_id) {
+          try {
+            const response = await fetch(`/conversations/${conversation_id}/`);
+            const messages = await response.json();
+            const main = document.querySelector("main");
+            main.innerHTML = ""; // Limpa o conteúdo anterior
+            // Adicionando o botão para voltar para a lista de conversas
+            const button = document.createElement("button");
+            button.innerText = "Voltar para a lista de conversas";
+            button.onclick = () => {
+              window.location.href = "/conversations/view/";
+            };
+            main.appendChild(button);
+
+            // Adicionando dados da conversa ao corpo do documento
+            const conversationStatus = document.createElement("p");
+            conversationStatus.innerText = `Status da conversa: ${messages.status}`;
+            main.appendChild(conversationStatus);
+            main.appendChild(document.createElement("hr"));
+            const conversationCreatedAt = document.createElement("p");
+            conversationCreatedAt.innerText = `Criada em: ${messages.created_at}`;
+            main.appendChild(conversationCreatedAt);
+
+            // Adicionando as mensagens ao corpo do documento
+            messages.messages.forEach((message) => {
+              let p = document.createElement("p");
+              p.innerText = message.id;
+              main.appendChild(p);
+              p = document.createElement("p");
+              p.innerText = message.direction;
+              main.appendChild(p);
+              p = document.createElement("p");
+              p.innerText = message.content;
+              main.appendChild(p);
+              p = document.createElement("p");
+              p.innerText = message.created_at;
+              main.appendChild(p);
+            });
+          } catch (error) {
+            console.error("Erro ao buscar mensagens:", error);
+          }
+        }
+        console.log("Carregando mensagens...");
+
+      async function carregarConversas() {
+        try {
+          const response = await fetch("/conversations/");
+          const conversations = await response.json();
+          const container = document.createElement("div");
+          container.classList.add("flex", "flex-col", "items-center", "gap-4", "mt-4");
+
+          conversations.forEach((conversation) => {
+            const button = document.createElement("button");
+            button.innerHTML = `Conversa: ${conversation.id} <br> Status: ${conversation.status}`;
+            if (conversation.status === "CLOSED") {
+              button.classList.add(
+              "w-full",
+              "bg-gradient-to-r",
+              "from-red-500",
+              "to-red-700",
+              "text-white",
+              "py-2",
+              "rounded-md",
+              "shadow-lg",
+              "hover:from-red-600",
+              "hover:to-red-800",
+              "transition",
+              "duration-300",
+              "ease-in-out",
+              "transform",
+              "hover:scale-105"
+              );
+            } else {
+              button.classList.add(
+              "w-full",
+              "bg-gradient-to-r",
+              "from-blue-500",
+              "to-blue-700",
+              "text-white",
+              "py-2",
+              "rounded-md",
+              "shadow-lg",
+              "hover:from-blue-600",
+              "hover:to-blue-800",
+              "transition",
+              "duration-300",
+              "ease-in-out",
+              "transform",
+              "hover:scale-105"
+              );
+            }
+            button.onclick = () => carregarMensagens(conversation.id);
+            container.appendChild(button);
+          });
+
+          const conversationButtons = document.getElementById("conversation-buttons");
+          conversationButtons.appendChild(container);
+        } catch (error) {
+          console.error("Erro ao buscar conversas:", error);
+        }
+      }
+      carregarConversas();
+
+
+
+    </script>
 </html>
