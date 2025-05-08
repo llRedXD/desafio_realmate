@@ -25,7 +25,7 @@ urlpatterns = [
         name="view-conversation",
     ),
     path(
-        "conversations/view/<int:conversation_id>/",
+        "conversations/view/<uuid:conversation_id>/",
         view_conversation,
         name="view-conversation-detail",
     ),

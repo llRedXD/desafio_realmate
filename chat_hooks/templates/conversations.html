@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
     <title>Lista de Conversas</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Bem-vindo à Lista de Conversas</h1>
     <p>Aqui estão suas conversas recentes:</p>
-</body>
+  </body>
 
-<script>
+  <script>
     // Função para redirecionar para a página de conversa
     function redirectToConversation(conversationId) {
-        window.location.href = `/conversations/view/${conversationId}/`;
+      window.location.href = `/conversations/view/${conversationId}/`;
     }
 
-    // Exemplo de conversas (substitua isso pela sua lógica real)
-    const conversations = [
-        { id: 1, title: "Conversa 1" },
-        { id: 2, title: "Conversa 2" },
-        { id: 3, title: "Conversa 3" }
-    ];
-
-    // Renderizando as conversas na página
-    const body = document.body;
-    conversations.forEach(conversation => {
-        const button = document.createElement('button');
-        button.innerText = conversation.title;
-        button.onclick = () => redirectToConversation(conversation.id);
-        body.appendChild(button);
-    });
-
-</script>
-
+    async function carregarConversas() {
+      try {
+        const response = await fetch("/conversations/");
+        const conversations = await response.json();
+        const body = document.body;
+        conversations.forEach((conversation) => {
+          const button = document.createElement("button");
+          button.innerText = conversation.id;
+          button.onclick = () => redirectToConversation(conversation.id);
+          body.appendChild(button);
+        });
+      } catch (error) {
+        console.error("Erro ao buscar conversas:", error);
+      }
+    }
+    carregarConversas();
+  </script>
 </html>
