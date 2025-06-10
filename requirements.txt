@@ -116,7 +116,7 @@ qrcode==8.0
 RapidFuzz==3.13.0
 redis==5.0.1
 reportlab==4.2.5
-requests==2.31.0
+requests==2.32.4
 requests-toolbelt==1.0.0
 schedule==1.2.0
 SecretStorage==3.3.3
