@@ -135,7 +135,7 @@ Twisted==23.10.0
 txaio==23.1.1
 typing_extensions==4.12.2
 tzdata==2025.2
-urllib3==2.0.4
+urllib3==2.5.0
 uvicorn==0.34.0
 vine==5.1.0
 virtualenv==20.31.1
