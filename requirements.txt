@@ -48,7 +48,7 @@ et_xmlfile==2.0.0
 executing==2.1.0
 ezodf==0.3.2
 fastjsonschema==2.21.1
-filelock==3.18.0
+filelock==3.20.1
 findpython==0.6.3
 greenlet==3.2.1
 h11==0.16.0
